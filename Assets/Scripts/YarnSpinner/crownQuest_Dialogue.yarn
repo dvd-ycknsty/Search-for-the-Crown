@@ -1,0 +1,90 @@
+﻿title: crownQuest_Dialogue
+---
+This is an example of a Yarn Spinner script. Write your dialogue here!
+===
+title: loadPhase
+---
+<<declare $dialoguePhase = "">>
+<<declare $hasVisited = false>>
+<<setPhase kingNPC>>
+///npc gameOb name called in the setPhase command dshould map to the specific npc you want to reference
+///
+<<if $dialoguePhase == "begin">>
+<<jump Start>>
+<<elseif $dialoguePhase == "comeback">>
+<<jump comeback>>
+<<elseif $dialoguePhase == "quest_started">>
+<<jump questStart>>
+<<elseif $dialoguePhase == "quest_completed">>
+<<jump questComplete>>
+<<else>>
+King: Heresy!
+<<endif>>
+===
+
+title: Start
+---
+<<set $hasVisited to true>>
+King: You must be the peasant my guard sent.
+King: Are you even qualified to be doing this?
+-> Probably not
+    King: Well, we'll just manage.
+    King: I am the King, and you must do something for me.
+    ->Sure.
+        <<getPhase kingNPC "quest_started">>
+        King: Excellent
+-> Of course I am
+    <<getPhase kingNPC "quest_started">>
+    King: Sure you are...anyways.
+-> OK, rude much?
+    <<getPhase kingNPC "quest_started">>
+    King: Who cares? I'm your king, I can be as rude as I want.
+===
+
+title: comeback
+---
+King: Well look who decided to show their face again.
+-> Relax, I'll help you out.
+    King: Hmph, thats what I thought.
+    King: Run along then.
+===
+
+title: questStart
+---
+King: You see, it seems as though I have lost a crown.
+King: I would like you to find it for me.
+-> Ok, sounds easy enough.
+    King: Excellent. Now, go on.
+    King: Don't keep a king waiting.
+-> And if I don't?
+    <<getPhase kingNPC "comeback">>
+    King: Then you are useless to me. 
+    King: Shoo.
+-> What if I pawn it off instead?
+    King: Death viia a beheading.
+    King: Anyways good luck.
+
+===
+
+title: questComplete
+---
+<<if $hasVisited == true>>
+King: Have you found it?
+-> Yes sir
+    King: Oh how delightful!
+    King: Now my dearest son may have his crown back!
+    -> Your son?
+        King: Why yes, who did you think was beside me this whole time?
+        The King's Finest: -squeak-
+<<else>>
+King: You there, how dare you enter my home without preamble!
+-> Sorry, but I found this tiny crown thingy; Is it yours?
+    King: Get ou-
+    King: Oh wait, it is actually.
+    King: My son's crown!
+    King: I have no clue who in the devil you are but thank you anyways.
+    King: My son can be happy once more.
+    The King's Finest: -squeak!-
+<<endif>>
+===
+
